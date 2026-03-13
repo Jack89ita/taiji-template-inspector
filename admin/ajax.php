@@ -8,6 +8,8 @@ add_action('wp_ajax_tui_load_posts', 'tui_ajax_load_posts');
 add_action('wp_ajax_tui_export_csv', 'tui_ajax_export_csv');
 
 function tui_ajax_load_posts() {
+  check_ajax_referer('tui_nonce', 'nonce');
+
   if (! current_user_can('manage_options')) {
     wp_die(esc_html__('You are not allowed to perform this action.', 'template-usage-inspector'));
   }
