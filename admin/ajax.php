@@ -121,6 +121,7 @@ function tui_ajax_export_csv() {
     }
   }
 
+  // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
   fclose($output);
   exit;
 }

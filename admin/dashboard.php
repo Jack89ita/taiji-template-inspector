@@ -230,7 +230,7 @@ function tui_render_dashboard() {
                     <button
                       type="button"
                       class="button tui-button tui-button-secondary tui-open-all-front"
-                      data-urls="<?php echo $front_urls_attr; ?>">
+                      data-urls="<?php echo esc_attr($front_urls_attr); ?>">
                       <span class=" dashicons dashicons-visibility"></span>
                       <span><?php esc_html_e('Frontend', 'template-usage-inspector'); ?></span>
                     </button>
@@ -238,7 +238,7 @@ function tui_render_dashboard() {
                     <button
                       type="button"
                       class="button tui-button tui-button-secondary tui-open-all-back"
-                      data-urls="<?php echo $back_urls_attr; ?>">
+                      data-urls="<?php echo esc_attr($back_urls_attr); ?>">
                       <span class="dashicons dashicons-edit"></span>
                       <span><?php esc_html_e('Backend', 'template-usage-inspector'); ?></span>
                     </button>
