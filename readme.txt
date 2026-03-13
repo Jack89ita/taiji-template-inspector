@@ -16,6 +16,8 @@ When you modify a WordPress template, you might be affecting dozens of pages wit
 
 Designed for WordPress developers and agencies working on complex sites, it turns template management from a guessing game into a controlled, auditable process.
 
+[View on GitHub](https://github.com/Jack89ita/template-usage-inspector)
+
 = What you can do =
 
 * **See every page affected by any template** — at a glance, sorted by usage count so the most impactful templates are always first

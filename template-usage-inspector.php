@@ -2,6 +2,7 @@
 
 /**
  * Plugin Name: Template Usage Inspector
+ * Plugin URI: https://github.com/Jack89ita/template-usage-inspector
  * Description: Inspect where WordPress templates are used across pages, posts and CPTs. Quickly open impacted pages, export CSV reports and perform QA checks.
  * Version: 1.0.0
  * Author: Giacomo Mottin
