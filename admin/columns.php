@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('ABSPATH')) {
+  exit;
+}
+
 function tui_add_column($columns) {
 
   $columns['template'] = 'Template';
@@ -25,7 +29,7 @@ function tui_render_column($column, $post_id) {
 
   $templates = wp_get_theme()->get_page_templates();
 
-  echo $templates[$template] ?? $template;
+  echo esc_html($templates[$template] ?? $template);
 }
 
 add_action('manage_pages_custom_column', 'tui_render_column', 10, 2);

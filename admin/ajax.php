@@ -8,7 +8,9 @@ add_action('wp_ajax_tui_load_posts', 'tui_ajax_load_posts');
 add_action('wp_ajax_tui_export_csv', 'tui_ajax_export_csv');
 
 function tui_ajax_load_posts() {
-  check_ajax_referer('tui_nonce', 'nonce');
+  if (! current_user_can('manage_options')) {
+    wp_die(esc_html__('You are not allowed to perform this action.', 'template-usage-inspector'));
+  }
 
   $template = isset($_POST['template']) ? sanitize_text_field(wp_unslash($_POST['template'])) : '';
   $lang     = isset($_POST['lang']) ? sanitize_text_field(wp_unslash($_POST['lang'])) : '';
