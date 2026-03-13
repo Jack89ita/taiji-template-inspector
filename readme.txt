@@ -1,5 +1,5 @@
 === Template Usage Inspector ===
-Contributors: giacomo-mottin
+Contributors: jack89ita
 Tags: templates, developer tools, template management, debugging, qa
 Requires at least: 5.8
 Tested up to: 6.9
