@@ -4,26 +4,26 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-add_action('admin_menu', 'tui_register_admin_page');
+add_action('admin_menu', 'taiji_register_admin_page');
 
-function tui_register_admin_page() {
+function taiji_register_admin_page() {
   add_management_page(
-    __('Template Usage Inspector', 'template-usage-inspector'),
-    __('Template Usage Inspector', 'template-usage-inspector'),
+    __('Taiji Template Inspector', 'taiji-template-inspector'),
+    __('Taiji Template Inspector', 'taiji-template-inspector'),
     'manage_options',
-    'template-usage-inspector',
-    'tui_render_dashboard'
+    'taiji-template-inspector',
+    'taiji_render_dashboard'
   );
 }
 
-function tui_render_dashboard() {
+function taiji_render_dashboard() {
 
-  $lang_filter = isset($_GET['tui_lang'])
-    ? sanitize_text_field(wp_unslash($_GET['tui_lang']))
-    : tui_get_current_language();
+  $lang_filter = isset($_GET['taiji_lang'])
+    ? sanitize_text_field(wp_unslash($_GET['taiji_lang']))
+    : taiji_get_current_language();
 
-  list($templates, $usage) = tui_get_templates_for_dashboard($lang_filter);
-  $template_urls = tui_get_all_template_urls($lang_filter);
+  list($templates, $usage) = taiji_get_templates_for_dashboard($lang_filter);
+  $template_urls = taiji_get_all_template_urls($lang_filter);
 
   $counts     = $usage['counts'];
   $types      = $usage['types'];
@@ -48,75 +48,75 @@ function tui_render_dashboard() {
   }
 ?>
 
-  <div class="wrap tui-wrap">
+  <div class="wrap taiji-wrap">
 
-    <div class="tui-page-header">
+    <div class="taiji-page-header">
       <div>
-        <h1><?php esc_html_e('Template Usage Inspector', 'template-usage-inspector'); ?></h1>
+        <h1><?php esc_html_e('Taiji Template Inspector', 'taiji-template-inspector'); ?></h1>
         <p class="description">
-          <?php esc_html_e('Quickly inspect where templates are used, open affected pages, and export results for QA.', 'template-usage-inspector'); ?>
+          <?php esc_html_e('Quickly inspect where templates are used, open affected pages, and export results for QA.', 'taiji-template-inspector'); ?>
         </p>
       </div>
     </div>
 
-    <div class="tui-summary">
-      <div class="tui-summary-card">
+    <div class="taiji-summary">
+      <div class="taiji-summary-card">
         <span class="dashicons dashicons-media-code"></span>
         <div>
           <strong><?php echo esc_html($total_templates); ?></strong>
-          <span><?php esc_html_e('Templates', 'template-usage-inspector'); ?></span>
+          <span><?php esc_html_e('Templates', 'taiji-template-inspector'); ?></span>
         </div>
       </div>
 
-      <div class="tui-summary-card">
+      <div class="taiji-summary-card">
         <span class="dashicons dashicons-yes-alt"></span>
         <div>
           <strong><?php echo esc_html($used_templates); ?></strong>
-          <span><?php esc_html_e('Used', 'template-usage-inspector'); ?></span>
+          <span><?php esc_html_e('Used', 'taiji-template-inspector'); ?></span>
         </div>
       </div>
 
-      <div class="tui-summary-card">
+      <div class="taiji-summary-card">
         <span class="dashicons dashicons-minus"></span>
         <div>
           <strong><?php echo esc_html($unused_templates); ?></strong>
-          <span><?php esc_html_e('Unused', 'template-usage-inspector'); ?></span>
+          <span><?php esc_html_e('Unused', 'taiji-template-inspector'); ?></span>
         </div>
       </div>
 
-      <div class="tui-summary-card">
+      <div class="taiji-summary-card">
         <span class="dashicons dashicons-admin-page"></span>
         <div>
           <strong><?php echo esc_html($total_pages); ?></strong>
-          <span><?php esc_html_e('Total pages impacted', 'template-usage-inspector'); ?></span>
+          <span><?php esc_html_e('Total pages impacted', 'taiji-template-inspector'); ?></span>
         </div>
       </div>
     </div>
 
-    <?php tui_render_filters(); ?>
+    <?php taiji_render_filters(); ?>
 
-    <div class="tui-toolbar">
-      <div class="tui-search-wrap">
+    <div class="taiji-toolbar">
+      <div class="taiji-search-wrap">
         <span class="dashicons dashicons-search"></span>
         <input
           type="text"
-          id="tui-search"
-          placeholder="<?php echo esc_attr__('Search template...', 'template-usage-inspector'); ?>">
+          id="taiji-search"
+          placeholder="<?php echo esc_attr__('Search template...', 'taiji-template-inspector'); ?>">
       </div>
     </div>
 
-    <div class="tui-table-wrap">
-      <table class="widefat tui-table">
+    <div class="taiji-table-wrap">
+      <table class="widefat taiji-table">
         <thead>
           <tr>
-            <th><?php esc_html_e('Template', 'template-usage-inspector'); ?></th>
-            <th><?php esc_html_e('File', 'template-usage-inspector'); ?></th>
-            <th><?php esc_html_e('Post Types', 'template-usage-inspector'); ?></th>
-            <th><?php esc_html_e('Last Modified', 'template-usage-inspector'); ?></th>
-            <th><?php esc_html_e('Usage', 'template-usage-inspector'); ?></th>
-            <th><?php esc_html_e('Export', 'template-usage-inspector'); ?></th>
-            <th><?php esc_html_e('QA', 'template-usage-inspector'); ?></th>
-            <th class="tui-expand-col"></th>
+            <th><?php esc_html_e('Template', 'taiji-template-inspector'); ?></th>
+            <th><?php esc_html_e('File', 'taiji-template-inspector'); ?></th>
+            <th><?php esc_html_e('Post Types', 'taiji-template-inspector'); ?></th>
+            <th><?php esc_html_e('Last Modified', 'taiji-template-inspector'); ?></th>
+            <th><?php esc_html_e('Usage', 'taiji-template-inspector'); ?></th>
+            <th><?php esc_html_e('Export', 'taiji-template-inspector'); ?></th>
+            <th><?php esc_html_e('QA', 'taiji-template-inspector'); ?></th>
+            <th class="taiji-expand-col"></th>
           </tr>
         </thead>
 
@@ -135,33 +135,33 @@ function tui_render_dashboard() {
 
             $front_urls_attr = esc_attr(implode('|', $front_urls));
             $back_urls_attr  = esc_attr(implode('|', $back_urls));
-            $post_types    = tui_format_post_types_summary($template_key, $types);
-            $last_modified = tui_get_last_modified_label($template_key, $theme_path);
+            $post_types    = taiji_format_post_types_summary($template_key, $types);
+            $last_modified = taiji_get_last_modified_label($template_key, $theme_path);
             $usage_percent = ($max_usage > 0 && $count > 0)
               ? min(100, round(($count / $max_usage) * 100))
               : 0;
             ?>
 
             <tr
-              class="tui-template-row"
+              class="taiji-template-row"
               data-template="<?php echo esc_attr($template_key); ?>"
               data-lang="<?php echo esc_attr((string) $lang_filter); ?>">
-              <td class="tui-col-template">
-                <div class="tui-template-name-wrap">
-                  <span class="dashicons dashicons-media-code tui-template-icon"></span>
+              <td class="taiji-col-template">
+                <div class="taiji-template-name-wrap">
+                  <span class="dashicons dashicons-media-code taiji-template-icon"></span>
 
-                  <div class="tui-template-text">
-                    <div class="tui-template-name">
+                  <div class="taiji-template-text">
+                    <div class="taiji-template-name">
                       <?php echo esc_html($template_name); ?>
                     </div>
 
                     <?php if ($count > 0) : ?>
-                      <span class="tui-badge tui-badge-used">
-                        <?php esc_html_e('Used', 'template-usage-inspector'); ?>
+                      <span class="taiji-badge taiji-badge-used">
+                        <?php esc_html_e('Used', 'taiji-template-inspector'); ?>
                       </span>
                     <?php else : ?>
-                      <span class="tui-badge tui-badge-unused">
-                        <?php esc_html_e('Unused', 'template-usage-inspector'); ?>
+                      <span class="taiji-badge taiji-badge-unused">
+                        <?php esc_html_e('Unused', 'taiji-template-inspector'); ?>
                       </span>
                     <?php endif; ?>
                   </div>
@@ -169,15 +169,15 @@ function tui_render_dashboard() {
               </td>
 
               <td>
-                <?php echo wp_kses_post(tui_get_template_file_label($template_key, $theme_path)); ?>
+                <?php echo wp_kses_post(taiji_get_template_file_label($template_key, $theme_path)); ?>
               </td>
 
-              <td class="tui-post-types">
+              <td class="taiji-post-types">
                 <?php echo esc_html($post_types); ?>
               </td>
 
               <td>
-                <div class="tui-last-modified">
+                <div class="taiji-last-modified">
                   <?php if (!empty($last_modified)) : ?>
                     <span class="dashicons dashicons-clock"></span>
                   <?php endif; ?>
@@ -185,20 +185,20 @@ function tui_render_dashboard() {
                 </div>
               </td>
 
-              <td class="tui-col-usage">
-                <div class="tui-usage-block">
-                  <div class="tui-usage-number-wrap">
+              <td class="taiji-col-usage">
+                <div class="taiji-usage-block">
+                  <div class="taiji-usage-number-wrap">
                     <span class="dashicons dashicons-chart-bar"></span>
                     <strong
-                      class="tui-usage-number"
+                      class="taiji-usage-number"
                       data-target="<?php echo esc_attr((string) $count); ?>">
                       0
                     </strong>
                   </div>
 
-                  <div class="tui-progress">
+                  <div class="taiji-progress">
                     <span
-                      class="tui-progress-bar"
+                      class="taiji-progress-bar"
                       data-width="<?php echo esc_attr((string) $usage_percent); ?>"
                       style="width:0%;"></span>
                   </div>
@@ -208,57 +208,57 @@ function tui_render_dashboard() {
               <td>
                 <?php if ($count > 0) : ?>
                   <a
-                    class="button tui-button tui-button-secondary"
+                    class="button taiji-button taiji-button-secondary"
                     href="<?php echo esc_url(
                             wp_nonce_url(
                               admin_url(
-                                'admin-ajax.php?action=tui_export_csv&template=' . rawurlencode($template_key) . '&tui_lang=' . rawurlencode((string) $lang_filter)
+                                'admin-ajax.php?action=taiji_export_csv&template=' . rawurlencode($template_key) . '&taiji_lang=' . rawurlencode((string) $lang_filter)
                               ),
-                              'tui_export_csv',
-                              'tui_export_nonce'
+                              'taiji_export_csv',
+                              'taiji_export_nonce'
                             )
                           ); ?>">
                     <span class="dashicons dashicons-download"></span>
-                    <span><?php esc_html_e('CSV', 'template-usage-inspector'); ?></span>
+                    <span><?php esc_html_e('CSV', 'taiji-template-inspector'); ?></span>
                   </a>
                 <?php endif; ?>
               </td>
 
               <td>
                 <?php if ($count > 0) : ?>
-                  <div class="tui-qa-actions">
+                  <div class="taiji-qa-actions">
                     <button
                       type="button"
-                      class="button tui-button tui-button-secondary tui-open-all-front"
+                      class="button taiji-button taiji-button-secondary taiji-open-all-front"
                       data-urls="<?php echo esc_attr($front_urls_attr); ?>">
                       <span class=" dashicons dashicons-visibility"></span>
-                      <span><?php esc_html_e('Frontend', 'template-usage-inspector'); ?></span>
+                      <span><?php esc_html_e('Frontend', 'taiji-template-inspector'); ?></span>
                     </button>
 
                     <button
                       type="button"
-                      class="button tui-button tui-button-secondary tui-open-all-back"
+                      class="button taiji-button taiji-button-secondary taiji-open-all-back"
                       data-urls="<?php echo esc_attr($back_urls_attr); ?>">
                       <span class="dashicons dashicons-edit"></span>
-                      <span><?php esc_html_e('Backend', 'template-usage-inspector'); ?></span>
+                      <span><?php esc_html_e('Backend', 'taiji-template-inspector'); ?></span>
                     </button>
                   </div>
                 <?php endif; ?>
               </td>
 
-              <td class="tui-expand-cell">
+              <td class="taiji-expand-cell">
                 <?php if ($count > 0) : ?>
                   <button
                     type="button"
-                    class="tui-expand-arrow"
-                    aria-label="<?php esc_attr_e('Expand row', 'template-usage-inspector'); ?>">
-                    <span class="dashicons dashicons-arrow-down-alt2 tui-arrow"></span>
+                    class="taiji-expand-arrow"
+                    aria-label="<?php esc_attr_e('Expand row', 'taiji-template-inspector'); ?>">
+                    <span class="dashicons dashicons-arrow-down-alt2 taiji-arrow"></span>
                   </button>
                 <?php endif; ?>
               </td>
             </tr>
 
-            <tr class="tui-results">
+            <tr class="taiji-results">
               <td colspan="8"></td>
             </tr>
           <?php endforeach; ?>

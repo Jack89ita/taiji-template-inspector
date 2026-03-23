@@ -4,17 +4,17 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-function tui_add_column($columns) {
+function taiji_add_column($columns) {
 
   $columns['template'] = 'Template';
 
   return $columns;
 }
 
-add_filter('manage_pages_columns', 'tui_add_column');
+add_filter('manage_pages_columns', 'taiji_add_column');
 
 
-function tui_render_column($column, $post_id) {
+function taiji_render_column($column, $post_id) {
 
   if ($column !== 'template') return;
 
@@ -32,4 +32,4 @@ function tui_render_column($column, $post_id) {
   echo esc_html($templates[$template] ?? $template);
 }
 
-add_action('manage_pages_custom_column', 'tui_render_column', 10, 2);
+add_action('manage_pages_custom_column', 'taiji_render_column', 10, 2);

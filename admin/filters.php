@@ -4,24 +4,24 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-function tui_render_filters() {
-  $current_lang = isset($_GET['tui_lang']) ? sanitize_text_field(wp_unslash($_GET['tui_lang'])) : '';
-  $languages    = tui_get_available_languages();
+function taiji_render_filters() {
+  $current_lang = isset($_GET['taiji_lang']) ? sanitize_text_field(wp_unslash($_GET['taiji_lang'])) : '';
+  $languages    = taiji_get_available_languages();
 
   if (empty($languages)) {
     return;
   }
 ?>
-  <form method="get" class="tui-filters-form">
-    <input type="hidden" name="page" value="template-usage-inspector">
+  <form method="get" class="taiji-filters-form">
+    <input type="hidden" name="page" value="taiji-template-inspector">
 
-    <div class="tui-filter-field">
-      <label for="tui_lang" class="screen-reader-text">
-        <?php esc_html_e('Language', 'template-usage-inspector'); ?>
+    <div class="taiji-filter-field">
+      <label for="taiji_lang" class="screen-reader-text">
+        <?php esc_html_e('Language', 'taiji-template-inspector'); ?>
       </label>
 
-      <select id="tui_lang" name="tui_lang" class="tui-select">
-        <option value=""><?php esc_html_e('Current Language', 'template-usage-inspector'); ?></option>
+      <select id="taiji_lang" name="taiji_lang" class="taiji-select">
+        <option value=""><?php esc_html_e('Current Language', 'taiji-template-inspector'); ?></option>
 
         <?php foreach ($languages as $code => $label) : ?>
           <option value="<?php echo esc_attr($code); ?>" <?php selected($current_lang, $code); ?>>
@@ -31,9 +31,9 @@ function tui_render_filters() {
       </select>
     </div>
 
-    <button type="submit" class="button tui-button tui-button-primary">
+    <button type="submit" class="button taiji-button taiji-button-primary">
       <span class="dashicons dashicons-filter"></span>
-      <span><?php esc_html_e('Filter', 'template-usage-inspector'); ?></span>
+      <span><?php esc_html_e('Filter', 'taiji-template-inspector'); ?></span>
     </button>
   </form>
 <?php

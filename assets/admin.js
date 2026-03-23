@@ -1,6 +1,6 @@
 jQuery(function ($) {
   function animateUsage() {
-    $(".tui-usage-number").each(function () {
+    $(".taiji-usage-number").each(function () {
       const el = $(this);
       const target = parseInt(el.data("target"), 10) || 0;
 
@@ -26,7 +26,7 @@ jQuery(function ($) {
       }, 22);
     });
 
-    $(".tui-progress-bar").each(function () {
+    $(".taiji-progress-bar").each(function () {
       const bar = $(this);
       const width = parseInt(bar.data("width"), 10) || 0;
 
@@ -44,20 +44,20 @@ jQuery(function ($) {
 
   animateUsage();
 
-  $(document).on("click", ".tui-expand-arrow", function () {
+  $(document).on("click", ".taiji-expand-arrow", function () {
     const row = $(this).closest("tr");
-    const results = row.next(".tui-results");
-    const arrow = $(this).find(".tui-arrow");
+    const results = row.next(".taiji-results");
+    const arrow = $(this).find(".taiji-arrow");
 
     if (results.hasClass("loaded")) {
       if (results.is(":visible")) {
         results.hide();
-        arrow.removeClass("tui-open");
-        row.removeClass("tui-row-open");
+        arrow.removeClass("taiji-open");
+        row.removeClass("taiji-row-open");
       } else {
         results.show();
-        arrow.addClass("tui-open");
-        row.addClass("tui-row-open");
+        arrow.addClass("taiji-open");
+        row.addClass("taiji-row-open");
       }
 
       return;
@@ -66,31 +66,31 @@ jQuery(function ($) {
     const template = row.data("template");
     const lang = row.data("lang") || "";
 
-    results.show().find("td").html('<div class="tui-loading">Loading…</div>');
+    results.show().find("td").html('<div class="taiji-loading">Loading…</div>');
 
     $.post(
-      tui_ajax.url,
+      taiji_ajax.url,
       {
-        action: "tui_load_posts",
+        action: "taiji_load_posts",
         template: template,
         lang: lang,
-        nonce: tui_ajax.nonce,
+        nonce: taiji_ajax.nonce,
       },
       function (response) {
         results.find("td").html(response);
         results.addClass("loaded");
         results.show();
 
-        arrow.addClass("tui-open");
-        row.addClass("tui-row-open");
+        arrow.addClass("taiji-open");
+        row.addClass("taiji-row-open");
       }
     );
   });
 
-  $("#tui-search").on("keyup", function () {
+  $("#taiji-search").on("keyup", function () {
     const value = $(this).val().toLowerCase();
 
-    $(".tui-template-row").each(function () {
+    $(".taiji-template-row").each(function () {
       const row = $(this);
       const text = row.text().toLowerCase();
       const match = text.indexOf(value) > -1;
@@ -98,14 +98,14 @@ jQuery(function ($) {
       row.toggle(match);
 
       if (!match) {
-        row.next(".tui-results").hide();
-        row.removeClass("tui-row-open");
-        row.find(".tui-arrow").removeClass("tui-open");
+        row.next(".taiji-results").hide();
+        row.removeClass("taiji-row-open");
+        row.find(".taiji-arrow").removeClass("taiji-open");
       }
     });
   });
 
-  $(document).on("click", ".tui-open-all-front, .tui-open-all-back", function () {
+  $(document).on("click", ".taiji-open-all-front, .taiji-open-all-back", function () {
 
     const urlsData = $(this).data("urls");
 

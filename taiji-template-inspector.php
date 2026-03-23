@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Plugin Name: Template Usage Inspector
- * Plugin URI: https://github.com/Jack89ita/template-usage-inspector
+ * Plugin Name: Taiji Template Inspector
+ * Plugin URI: https://github.com/Jack89ita/taiji-template-inspector
  * Description: Inspect where WordPress templates are used across pages, posts and CPTs. Quickly open impacted pages, export CSV reports and perform QA checks.
  * Version: 1.0.0
  * Author: Giacomo Mottin
  * Author URI: https://www.giacomomottin.com
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: template-usage-inspector
+ * Text Domain: taiji-template-inspector
  * Domain Path: /languages
  * Requires at least: 5.8
  * Requires PHP: 7.4
@@ -26,10 +26,10 @@ if (!defined('ABSPATH')) {
 |--------------------------------------------------------------------------
 */
 
-define('TUI_VERSION', '1.0.0');
-define('TUI_PLUGIN_FILE', __FILE__);
-define('TUI_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('TUI_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('TAIJI_VERSION', '1.0.0');
+define('TAIJI_PLUGIN_FILE', __FILE__);
+define('TAIJI_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('TAIJI_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 /*
 |--------------------------------------------------------------------------
@@ -37,14 +37,14 @@ define('TUI_PLUGIN_URL', plugin_dir_url(__FILE__));
 |--------------------------------------------------------------------------
 */
 
-require_once TUI_PLUGIN_DIR . 'includes/language.php';
-require_once TUI_PLUGIN_DIR . 'includes/database.php';
-require_once TUI_PLUGIN_DIR . 'includes/functions.php';
+require_once TAIJI_PLUGIN_DIR . 'includes/language.php';
+require_once TAIJI_PLUGIN_DIR . 'includes/database.php';
+require_once TAIJI_PLUGIN_DIR . 'includes/functions.php';
 
-require_once TUI_PLUGIN_DIR . 'admin/dashboard.php';
-require_once TUI_PLUGIN_DIR . 'admin/ajax.php';
-require_once TUI_PLUGIN_DIR . 'admin/columns.php';
-require_once TUI_PLUGIN_DIR . 'admin/filters.php';
+require_once TAIJI_PLUGIN_DIR . 'admin/dashboard.php';
+require_once TAIJI_PLUGIN_DIR . 'admin/ajax.php';
+require_once TAIJI_PLUGIN_DIR . 'admin/columns.php';
+require_once TAIJI_PLUGIN_DIR . 'admin/filters.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -52,35 +52,35 @@ require_once TUI_PLUGIN_DIR . 'admin/filters.php';
 |--------------------------------------------------------------------------
 */
 
-add_action('admin_enqueue_scripts', 'tui_admin_assets', 100);
+add_action('admin_enqueue_scripts', 'taiji_admin_assets', 100);
 
-function tui_admin_assets($hook) {
+function taiji_admin_assets($hook) {
 
-  if ($hook !== 'tools_page_template-usage-inspector') {
+  if ($hook !== 'tools_page_taiji-template-inspector') {
     return;
   }
 
   wp_enqueue_style(
-    'tui-admin',
-    TUI_PLUGIN_URL . 'assets/admin.css',
+    'taiji-admin',
+    TAIJI_PLUGIN_URL . 'assets/admin.css',
     array(),
-    TUI_VERSION
+    TAIJI_VERSION
   );
 
   wp_enqueue_script(
-    'tui-admin',
-    TUI_PLUGIN_URL . 'assets/admin.js',
+    'taiji-admin',
+    TAIJI_PLUGIN_URL . 'assets/admin.js',
     array('jquery'),
-    TUI_VERSION,
+    TAIJI_VERSION,
     true
   );
 
   wp_localize_script(
-    'tui-admin',
-    'tui_ajax',
+    'taiji-admin',
+    'taiji_ajax',
     array(
       'url'   => admin_url('admin-ajax.php'),
-      'nonce' => wp_create_nonce('tui_nonce'),
+      'nonce' => wp_create_nonce('taiji_nonce'),
     )
   );
 }
@@ -91,12 +91,12 @@ function tui_admin_assets($hook) {
 |--------------------------------------------------------------------------
 */
 
-register_activation_hook(__FILE__, 'tui_plugin_activate');
+register_activation_hook(__FILE__, 'taiji_plugin_activate');
 
-function tui_plugin_activate() {
+function taiji_plugin_activate() {
 
-  if (function_exists('tui_on_activation')) {
-    tui_on_activation();
+  if (function_exists('taiji_on_activation')) {
+    taiji_on_activation();
   }
 }
 
@@ -106,11 +106,11 @@ function tui_plugin_activate() {
 |--------------------------------------------------------------------------
 */
 
-register_deactivation_hook(__FILE__, 'tui_plugin_deactivate');
+register_deactivation_hook(__FILE__, 'taiji_plugin_deactivate');
 
-function tui_plugin_deactivate() {
+function taiji_plugin_deactivate() {
 
-  if (function_exists('tui_on_deactivation')) {
-    tui_on_deactivation();
+  if (function_exists('taiji_on_deactivation')) {
+    taiji_on_deactivation();
   }
 }

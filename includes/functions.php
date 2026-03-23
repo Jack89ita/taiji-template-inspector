@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-function tui_get_current_language() {
+function taiji_get_current_language() {
   if (defined('ICL_SITEPRESS_VERSION')) {
     return apply_filters('wpml_current_language', null);
   }
@@ -16,7 +16,7 @@ function tui_get_current_language() {
   return null;
 }
 
-function tui_get_available_languages() {
+function taiji_get_available_languages() {
   $languages = array();
 
   if (defined('ICL_SITEPRESS_VERSION')) {
@@ -55,21 +55,21 @@ function tui_get_available_languages() {
   return $languages;
 }
 
-function tui_get_templates() {
+function taiji_get_templates() {
   $templates = wp_get_theme()->get_page_templates();
-  $templates['default'] = __('Default Template', 'template-usage-inspector');
+  $templates['default'] = __('Default Template', 'taiji-template-inspector');
 
   return $templates;
 }
 
-function tui_get_cache_key($lang = null) {
+function taiji_get_cache_key($lang = null) {
   $blog_id = get_current_blog_id();
   $lang    = $lang ?: 'all';
 
-  return 'tui_template_usage_' . $blog_id . '_' . sanitize_key($lang);
+  return 'taiji_template_usage_' . $blog_id . '_' . sanitize_key($lang);
 }
 
-function tui_get_language_sql_parts($lang) {
+function taiji_get_language_sql_parts($lang) {
   global $wpdb;
 
   $join  = '';
@@ -80,21 +80,21 @@ function tui_get_language_sql_parts($lang) {
   }
 
   if (defined('ICL_SITEPRESS_VERSION')) {
-    $join = " INNER JOIN {$wpdb->prefix}icl_translations tui_lang
-                  ON p.ID = tui_lang.element_id ";
+    $join = " INNER JOIN {$wpdb->prefix}icl_translations taiji_lang
+                  ON p.ID = taiji_lang.element_id ";
 
     $where = $wpdb->prepare(
-      " AND tui_lang.language_code = %s ",
+      " AND taiji_lang.language_code = %s ",
       $lang
     );
   } elseif (function_exists('pll_current_language')) {
-    $join = " INNER JOIN {$wpdb->term_relationships} tui_tr ON p.ID = tui_tr.object_id
-                  INNER JOIN {$wpdb->term_taxonomy} tui_tt ON tui_tr.term_taxonomy_id = tui_tt.term_taxonomy_id
-                  INNER JOIN {$wpdb->terms} tui_t ON tui_tt.term_id = tui_t.term_id ";
+    $join = " INNER JOIN {$wpdb->term_relationships} taiji_tr ON p.ID = taiji_tr.object_id
+                  INNER JOIN {$wpdb->term_taxonomy} taiji_tt ON taiji_tr.term_taxonomy_id = taiji_tt.term_taxonomy_id
+                  INNER JOIN {$wpdb->terms} taiji_t ON taiji_tt.term_id = taiji_t.term_id ";
 
     $where = $wpdb->prepare(
-      " AND tui_tt.taxonomy = 'language'
-              AND tui_t.slug = %s ",
+      " AND taiji_tt.taxonomy = 'language'
+              AND taiji_t.slug = %s ",
       $lang
     );
   }
@@ -109,21 +109,21 @@ function tui_get_language_sql_parts($lang) {
  * - conta per template + post_type
  * - usa COUNT(DISTINCT p.ID)
  */
-function tui_get_usage_data($lang = null) {
+function taiji_get_usage_data($lang = null) {
   global $wpdb;
 
   if ($lang === null || $lang === '') {
-    $lang = tui_get_current_language();
+    $lang = taiji_get_current_language();
   }
 
-  $cache_key = tui_get_cache_key($lang);
+  $cache_key = taiji_get_cache_key($lang);
   $cached    = get_transient($cache_key);
 
   if ($cached !== false) {
     return $cached;
   }
 
-  list($lang_join, $lang_where) = tui_get_language_sql_parts($lang);
+  list($lang_join, $lang_where) = taiji_get_language_sql_parts($lang);
 
   $sql = "
         SELECT
@@ -178,16 +178,16 @@ function tui_get_usage_data($lang = null) {
     'types'  => $types,
   );
 
-  $cache_ttl = (int) apply_filters('tui_cache_ttl', 5 * MINUTE_IN_SECONDS, $lang, $data);
+  $cache_ttl = (int) apply_filters('taiji_cache_ttl', 5 * MINUTE_IN_SECONDS, $lang, $data);
 
   set_transient($cache_key, $data, max(1, $cache_ttl));
 
   return $data;
 }
 
-function tui_get_templates_for_dashboard($lang = null) {
-  $templates = tui_get_templates();
-  $usage     = tui_get_usage_data($lang);
+function taiji_get_templates_for_dashboard($lang = null) {
+  $templates = taiji_get_templates();
+  $usage     = taiji_get_usage_data($lang);
   $counts    = $usage['counts'];
 
   // aggiunge template "orfani" presenti nel DB ma non più nel tema
@@ -215,7 +215,7 @@ function tui_get_templates_for_dashboard($lang = null) {
   return array($templates, $usage);
 }
 
-function tui_format_post_types_summary($template_key, $types_map) {
+function taiji_format_post_types_summary($template_key, $types_map) {
 
   if (empty($types_map[$template_key])) {
     return '';
@@ -244,7 +244,7 @@ function tui_format_post_types_summary($template_key, $types_map) {
   return $text;
 }
 
-function tui_get_template_file_label($template_key, $theme_path) {
+function taiji_get_template_file_label($template_key, $theme_path) {
   if ($template_key === 'default') {
     return 'default';
   }
@@ -258,7 +258,7 @@ function tui_get_template_file_label($template_key, $theme_path) {
   return esc_html($template_key);
 }
 
-function tui_get_last_modified_label($template_key, $theme_path) {
+function taiji_get_last_modified_label($template_key, $theme_path) {
   if ($template_key === 'default') {
     return '';
   }
@@ -272,7 +272,7 @@ function tui_get_last_modified_label($template_key, $theme_path) {
   return human_time_diff(filemtime($path), current_time('timestamp')) . ' ago';
 }
 
-function tui_build_template_query_args($template, $lang = '') {
+function taiji_build_template_query_args($template, $lang = '') {
   $args = array(
     'post_type'              => 'any',
     'posts_per_page'         => -1,
@@ -315,7 +315,7 @@ function tui_build_template_query_args($template, $lang = '') {
   return $args;
 }
 
-function tui_get_all_template_urls($lang = '') {
+function taiji_get_all_template_urls($lang = '') {
 
   $args = [
     'post_type'      => 'any',

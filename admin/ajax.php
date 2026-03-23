@@ -4,31 +4,31 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-add_action('wp_ajax_tui_load_posts', 'tui_ajax_load_posts');
-add_action('wp_ajax_tui_export_csv', 'tui_ajax_export_csv');
+add_action('wp_ajax_taiji_load_posts', 'taiji_ajax_load_posts');
+add_action('wp_ajax_taiji_export_csv', 'taiji_ajax_export_csv');
 
-function tui_ajax_load_posts() {
-  check_ajax_referer('tui_nonce', 'nonce');
+function taiji_ajax_load_posts() {
+  check_ajax_referer('taiji_nonce', 'nonce');
 
   if (! current_user_can('manage_options')) {
-    wp_die(esc_html__('You are not allowed to perform this action.', 'template-usage-inspector'));
+    wp_die(esc_html__('You are not allowed to perform this action.', 'taiji-template-inspector'));
   }
 
   $template = isset($_POST['template']) ? sanitize_text_field(wp_unslash($_POST['template'])) : '';
   $lang     = isset($_POST['lang']) ? sanitize_text_field(wp_unslash($_POST['lang'])) : '';
 
-  $args  = tui_build_template_query_args($template, $lang);
+  $args  = taiji_build_template_query_args($template, $lang);
   $query = new WP_Query($args);
 
   if (!$query->have_posts()) {
-    echo '<div class="tui-empty-state">';
+    echo '<div class="taiji-empty-state">';
     echo '<span class="dashicons dashicons-search"></span>';
-    echo '<p>' . esc_html__('No results', 'template-usage-inspector') . '</p>';
+    echo '<p>' . esc_html__('No results', 'taiji-template-inspector') . '</p>';
     echo '</div>';
     wp_die();
   }
 
-  echo '<div class="tui-dropdown-list">';
+  echo '<div class="taiji-dropdown-list">';
 
   while ($query->have_posts()) {
     $query->the_post();
@@ -40,25 +40,25 @@ function tui_ajax_load_posts() {
     $post_type = get_post_type($post_id);
     $status    = get_post_status($post_id);
 
-    echo '<div class="tui-dropdown-item">';
-    echo '  <div class="tui-dropdown-item-main">';
-    echo '      <div class="tui-dropdown-item-title">' . esc_html($title) . '</div>';
-    echo '      <div class="tui-dropdown-item-meta">';
+    echo '<div class="taiji-dropdown-item">';
+    echo '  <div class="taiji-dropdown-item-main">';
+    echo '      <div class="taiji-dropdown-item-title">' . esc_html($title) . '</div>';
+    echo '      <div class="taiji-dropdown-item-meta">';
     echo '          <span>' . esc_html($post_type) . '</span>';
-    echo '          <span class="tui-dropdown-dot">•</span>';
+    echo '          <span class="taiji-dropdown-dot">•</span>';
     echo '          <span>' . esc_html($status) . '</span>';
     echo '      </div>';
     echo '  </div>';
 
-    echo '  <div class="tui-dropdown-actions">';
-    echo '      <a class="button button-small tui-button tui-button-secondary" href="' . esc_url($edit_link) . '">';
+    echo '  <div class="taiji-dropdown-actions">';
+    echo '      <a class="button button-small taiji-button taiji-button-secondary" href="' . esc_url($edit_link) . '">';
     echo '          <span class="dashicons dashicons-edit"></span>';
-    echo '          <span>' . esc_html__('Edit', 'template-usage-inspector') . '</span>';
+    echo '          <span>' . esc_html__('Edit', 'taiji-template-inspector') . '</span>';
     echo '      </a>';
 
-    echo '      <a class="button button-small tui-button tui-button-secondary" target="_blank" href="' . esc_url($view_link) . '">';
+    echo '      <a class="button button-small taiji-button taiji-button-secondary" target="_blank" href="' . esc_url($view_link) . '">';
     echo '          <span class="dashicons dashicons-external"></span>';
-    echo '          <span>' . esc_html__('View', 'template-usage-inspector') . '</span>';
+    echo '          <span>' . esc_html__('View', 'taiji-template-inspector') . '</span>';
     echo '      </a>';
     echo '  </div>';
     echo '</div>';
@@ -70,7 +70,7 @@ function tui_ajax_load_posts() {
   wp_die();
 }
 
-function tui_escape_csv_value($value) {
+function taiji_escape_csv_value($value) {
   $value = (string) $value;
 
   if (preg_match('/^[=+\-@]/', $value) === 1) {
@@ -80,17 +80,17 @@ function tui_escape_csv_value($value) {
   return $value;
 }
 
-function tui_ajax_export_csv() {
+function taiji_ajax_export_csv() {
   if (!current_user_can('manage_options')) {
-    wp_die(esc_html__('You are not allowed to export this data.', 'template-usage-inspector'), 403);
+    wp_die(esc_html__('You are not allowed to export this data.', 'taiji-template-inspector'), 403);
   }
 
-  check_admin_referer('tui_export_csv', 'tui_export_nonce');
+  check_admin_referer('taiji_export_csv', 'taiji_export_nonce');
 
   $template = isset($_GET['template']) ? sanitize_text_field(wp_unslash($_GET['template'])) : '';
-  $lang     = isset($_GET['tui_lang']) ? sanitize_text_field(wp_unslash($_GET['tui_lang'])) : '';
+  $lang     = isset($_GET['taiji_lang']) ? sanitize_text_field(wp_unslash($_GET['taiji_lang'])) : '';
 
-  $args = tui_build_template_query_args($template, $lang);
+  $args = taiji_build_template_query_args($template, $lang);
   $args['fields'] = 'ids';
 
   $query = new WP_Query($args);
@@ -113,10 +113,10 @@ function tui_ajax_export_csv() {
     foreach ($query->posts as $post_id) {
       fputcsv($output, array(
         $post_id,
-        tui_escape_csv_value(get_the_title($post_id)),
+        taiji_escape_csv_value(get_the_title($post_id)),
         get_post_type($post_id),
         get_post_status($post_id),
-        tui_escape_csv_value(get_permalink($post_id)),
+        taiji_escape_csv_value(get_permalink($post_id)),
       ));
     }
   }

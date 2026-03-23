@@ -1,4 +1,4 @@
-=== Template Usage Inspector ===
+=== Taiji Template Inspector ===
 Contributors: jack89ita
 Tags: templates, developer tools, template management, debugging, qa
 Requires at least: 5.8
@@ -12,11 +12,11 @@ Instantly see which pages a template powers, so every change is intentional — 
 
 == Description ==
 
-When you modify a WordPress template, you might be affecting dozens of pages without even knowing it. **Template Usage Inspector** gives you full visibility: instantly see which pages, posts and custom post types use each template — before you change a single line of code.
+When you modify a WordPress template, you might be affecting dozens of pages without even knowing it. **Taiji Template Inspector** gives you full visibility: instantly see which pages, posts and custom post types use each template — before you change a single line of code.
 
 Designed for WordPress developers and agencies working on complex sites, it turns template management from a guessing game into a controlled, auditable process.
 
-[View on GitHub](https://github.com/Jack89ita/template-usage-inspector)
+[View on GitHub](https://github.com/Jack89ita/taiji-template-inspector)
 
 = What you can do =
 
@@ -30,9 +30,9 @@ Designed for WordPress developers and agencies working on complex sites, it turn
 
 = Built for real projects =
 
-Template Usage Inspector is read-only and completely safe to use in production. It uses optimised database queries with WordPress transient caching to minimise performance impact, even on large sites with hundreds of pages and multiple custom post types.
+Taiji Template Inspector is read-only and completely safe to use in production. It uses optimised database queries with WordPress transient caching to minimise performance impact, even on large sites with hundreds of pages and multiple custom post types.
 
-No settings to configure. Install, activate, and find it under **Tools → Template Usage Inspector**.
+No settings to configure. Install, activate, and find it under **Tools → Taiji Template Inspector**.
 
 = Who is this for? =
 
@@ -42,9 +42,9 @@ No settings to configure. Install, activate, and find it under **Tools → Templ
 
 == Installation ==
 
-1. Upload the `template-usage-inspector` folder to `/wp-content/plugins/`
+1. Upload the `taiji-template-inspector` folder to `/wp-content/plugins/`
 2. Activate the plugin through the **Plugins** menu in WordPress
-3. Navigate to **Tools → Template Usage Inspector**
+3. Navigate to **Tools → Taiji Template Inspector**
 
 That's it — no configuration needed.
 
@@ -52,7 +52,7 @@ That's it — no configuration needed.
 
 = Does this plugin modify my database or content? =
 
-No. Template Usage Inspector is entirely read-only. It only reads existing information about templates and posts. It never writes, modifies or deletes any content or database structures.
+No. Taiji Template Inspector is entirely read-only. It only reads existing information about templates and posts. It never writes, modifies or deletes any content or database structures.
 
 = Is it safe to use on a live production site? =
 
@@ -76,7 +76,7 @@ Yes. Each template row includes a CSV export button that downloads a report of a
 
 = Where do I find the plugin after activation? =
 
-Navigate to **Tools → Template Usage Inspector** in your WordPress admin.
+Navigate to **Tools → Taiji Template Inspector** in your WordPress admin.
 
 = Does it work with multisite? =
 
@@ -108,4 +108,4 @@ The plugin works on individual sites within a multisite network. It is not netwo
 == Upgrade Notice ==
 
 = 1.0.0 =
-Initial release of Template Usage Inspector.
+Initial release of Taiji Template Inspector.
