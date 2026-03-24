@@ -42,7 +42,7 @@ No settings to configure. Install, activate, and find it under **Tools → Taiji
 
 == Installation ==
 
-1. Upload the `taiji-template-inspector` folder to `/wp-content/plugins/`
+1. Install the plugin from the WordPress.org plugin directory, or upload the `taiji-template-inspector` folder to `/wp-content/plugins/`
 2. Activate the plugin through the **Plugins** menu in WordPress
 3. Navigate to **Tools → Taiji Template Inspector**
 
