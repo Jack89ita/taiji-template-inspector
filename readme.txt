@@ -86,8 +86,8 @@ The plugin works on individual sites within a multisite network. It is not netwo
 
 1. Dashboard overview showing template summary cards and the full template table with usage counts
 2. Expandable template rows revealing the individual pages and posts assigned to each template
-3. One-click QA actions to open all affected pages in frontend or backend
-4. CSV export and language filter for multilingual sites
+3. Native WordPress pages list with the added Template column for at-a-glance visibility
+4. Orphaned template detection — missing theme files are automatically flagged in red
 
 == Changelog ==
 
